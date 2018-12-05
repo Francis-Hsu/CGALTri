@@ -1,0 +1,13 @@
+Package: CGALTri
+Type: Package
+Title: Triangulation with CGAL
+Version: 0.01
+Date: 2018-12-04
+Authors@R: person(given = "Peng", family = "Xu", role = c("aut", "cre"), email = "px2132@columbia.edu")
+Author: Peng Xu <px2132@columbia.edu> [aut, cre]
+Maintainer: Peng Xu <px2132@columbia.edu>
+Description: Perform triangulation in R using the CGAL library.
+License: GPL (>= 3)
+Imports: Rcpp (>= 1.0.0)
+LinkingTo: Rcpp
+RoxygenNote: 6.1.1
