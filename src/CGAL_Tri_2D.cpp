@@ -61,14 +61,14 @@ NumericMatrix Cropped_Voronoi_2D(NumericMatrix data, NumericVector bCoord){
   // a matrix storing segments of the diagram
   NumericMatrix Segments(vor.m_cropped_vd.size(), 4);
   int row_i = 0;
-  for(auto it = vor.m_cropped_vd.begin(); it != vor.m_cropped_vd.end(); it++) {
-	  Point_2 s = (*it).source();
-	  Point_2 t = (*it).target();
-	  Segments(row_i, 0) = s.x();
-	  Segments(row_i, 1) = s.y();
-	  Segments(row_i, 2) = t.x();
-	  Segments(row_i, 3) = t.y();
-	  row_i++;
+  for(auto it = vor.m_cropped_vd.begin(); it != vor.m_cropped_vd.end(); ++it) {
+    Point_2 s = (*it).source();
+    Point_2 t = (*it).target();
+    Segments(row_i, 0) = s.x();
+    Segments(row_i, 1) = s.y();
+    Segments(row_i, 2) = t.x();
+    Segments(row_i, 3) = t.y();
+    row_i++;
   }
   
   return Segments;
