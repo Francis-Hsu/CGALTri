@@ -3,9 +3,10 @@
 #' Computes the Delaunay triangulation of a set of points and prints the Voronoi edges restricted to a given rectangle.
 #' @param data Input coordinate matrix, of size \eqn{n} by \eqn{2}.
 #' @param bCoord Coordinates of the box boundary.
+#' @param Vor Plot the Voronoi diagram if true, otherwise plot the Delaunay triangulation
 #' @keywords Voronoi
 #' @export
-Plot_Cropped_Voronoi_2D = function(data, bCoord = NULL) {
+Plot_Cropped_Voronoi_2D = function(data, bCoord = NULL, Vor = T) {
   if (is.null(bCoord)) {
     bCoord = 1.1 * c(min(X[, 1]), min(X[, 2]), max(X[, 1]), max(X[, 2]))
   }
@@ -21,8 +22,15 @@ Plot_Cropped_Voronoi_2D = function(data, bCoord = NULL) {
   gg_color_hue = hcl(h = seq(15, 375, length = 7), l = 65, c = 100)[1:6] # pretty color
   par(mar = rep(0.1, 4)) # remove margin
   
-  # plot the Voronoi diagram
+  # choose what to plot
   S = Cropped_Voronoi_2D(X, bCoord) # compute Voronoi segements
+  if (Vor) {
+    S = S$vEdges
+  } else {
+    S = S$tEdges
+  }
+  
+  # plot the diagram
   plot(xCoord, yCoord, xlim = rX, ylim = rY, pch = 20,
        xaxt = "n", yaxt = "n", bty = "n", xlab = "", ylab = "")
   rect(bCoord[1], bCoord[2], bCoord[3], bCoord[4], border = gg_color_hue[5], lwd = 2)

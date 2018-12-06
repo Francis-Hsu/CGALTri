@@ -6,13 +6,13 @@
 using namespace Rcpp;
 
 // Cropped_Voronoi_2D
-NumericMatrix Cropped_Voronoi_2D(NumericMatrix data, NumericVector bCoord);
+List Cropped_Voronoi_2D(const NumericMatrix& data, const NumericVector& bCoord);
 RcppExport SEXP _CGALTri_Cropped_Voronoi_2D(SEXP dataSEXP, SEXP bCoordSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type data(dataSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type bCoord(bCoordSEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type bCoord(bCoordSEXP);
     rcpp_result_gen = Rcpp::wrap(Cropped_Voronoi_2D(data, bCoord));
     return rcpp_result_gen;
 END_RCPP

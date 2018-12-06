@@ -26,8 +26,8 @@ struct Cropped_voronoi_from_delaunay{
     CGAL::Object obj = CGAL::intersection(rsl, m_bbox);
     const Segment_2* s = CGAL::object_cast<Segment_2>(&obj);
     if (s) {
-		m_cropped_vd.push_back(*s);
-	}
+      m_cropped_vd.push_back(*s);
+    }
   }
   
   void operator<<(const Ray_2& ray)    { crop_and_extract_segment(ray); }
@@ -36,19 +36,18 @@ struct Cropped_voronoi_from_delaunay{
 };
 
 // [[Rcpp::export]]
-NumericMatrix Cropped_Voronoi_2D(NumericMatrix data, NumericVector bCoord){
-  //consider some points
+List Cropped_Voronoi_2D(const NumericMatrix &data, const NumericVector &bCoord){
+  // load some points
   std::vector<Point_2> points;
-  
   for (int i = 0; i < data.nrow(); i++) {
     double x = data(i, 0);
     double y = data(i, 1);
     Point_2 p(x, y);
     points.push_back(p);
   }
-  Delaunay_triangulation_2 dt2;
   
   // insert points into the triangulation
+  Delaunay_triangulation_2 dt2;
   dt2.insert(points.begin(), points.end());
   
   // construct a rectangle
@@ -58,19 +57,41 @@ NumericMatrix Cropped_Voronoi_2D(NumericMatrix data, NumericVector bCoord){
   // extract the cropped Voronoi diagram
   dt2.draw_dual(vor);
   
-  // a matrix storing segments of the diagram
-  NumericMatrix Segments(vor.m_cropped_vd.size(), 4);
-  int row_i = 0;
+  // iteration indices
+  int itdx = 0;
+  
+  // matrix storing edges of the triangulation
+  Point_2 v;
+  NumericMatrix tEdges(3 * dt2.number_of_faces(), 4);
+  for(auto it = dt2.finite_faces_begin(); it != dt2.finite_faces_end(); ++it) {
+    for(int j = itdx; j <= itdx + 2; j++) {
+      v = it->vertex(j - itdx)->point();
+      tEdges(j, 0) = v.x();
+      tEdges(j, 1) = v.y();
+      tEdges(itdx + (j - itdx + 2) % 3, 2) = v.x();
+      tEdges(itdx + (j - itdx + 2) % 3, 3) = v.y();
+    }
+    itdx = itdx + 3;
+  }
+  itdx = 0;
+  
+  // matrix storing segments of the Voronoi diagram
+  Point_2 s, t;
+  NumericMatrix vEdges(vor.m_cropped_vd.size(), 4);
   for(auto it = vor.m_cropped_vd.begin(); it != vor.m_cropped_vd.end(); ++it) {
-    Point_2 s = (*it).source();
-    Point_2 t = (*it).target();
-    Segments(row_i, 0) = s.x();
-    Segments(row_i, 1) = s.y();
-    Segments(row_i, 2) = t.x();
-    Segments(row_i, 3) = t.y();
-    row_i++;
+    s = it->source();
+    t = it->target();
+    vEdges(itdx, 0) = s.x();
+    vEdges(itdx, 1) = s.y();
+    vEdges(itdx, 2) = t.x();
+    vEdges(itdx, 3) = t.y();
+    itdx++;
   }
   
-  return Segments;
+  List ret;
+  ret["tEdges"] = tEdges;
+  ret["vEdges"] = vEdges;
+    
+  return ret;
 }
 
