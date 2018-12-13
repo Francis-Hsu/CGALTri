@@ -10,26 +10,33 @@ CGAL-4.13
 
 ## Example
 ```R
+library(MASS)
 library(CGALTri)
 
 # example given in the document
 X = matrix(c(0, 0, 1, 1, 0, 1), 3, 2, byrow = T)
 B = c(-1, -1, 2, 2)
-Cropped_Voronoi_2D(X, B)
-Plot_Cropped_Voronoi_2D(X, B)
-Plot_Cropped_Voronoi_2D(X, B, Vor = F)
+TX = Triangulation_2D(X, B)
+plot(TX)
 
 # generate some random data
-X = 2 * mvrnorm(100, rep(0, 2), diag(2))
+n = 25
+X = 2 * mvrnorm(n, rep(0, 2), diag(2))
 
-# plot an uncropped Voronoi diagram
-Plot_Cropped_Voronoi_2D(X)
-Plot_Cropped_Voronoi_2D(X, F)
+# uncropped triangulation
+TX = Triangulation_2D(X)
+plot(TX)
 
 # now crop it
 B = c(-1, -1, 1, 1)
-Plot_Cropped_Voronoi_2D(X, B)
-Plot_Cropped_Voronoi_2D(X, B, F)
+TX = Triangulation_2D(X, B)
+plot(TX)
+
+# regular triangulation
+w = sample(1:3 / 10, n, replace = T)
+wX = cbind(X, w)
+TwX = Triangulation_2D(wX, type = "Reg")
+plot(TwX)
 ```
 
 ## Reference
