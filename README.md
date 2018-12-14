@@ -1,19 +1,19 @@
 # CGALTri
 ## Description
-An experimental R package that computes triangulation using CGAL.
+An experimental R package that computes triangulation by using CGAL.
 
 ## Installation
 In R console, run `devtools::install_github("Francis-Hsu/CGALTri")`.
 
 ## Requirement
-CGAL-4.13
+CGAL 4.13
 
 ## Example
 ```R
 library(MASS)
 library(CGALTri)
 
-# example given in the document
+# example given in CGAL document
 X = matrix(c(0, 0, 1, 1, 0, 1), 3, 2, byrow = T)
 B = c(-1, -1, 2, 2)
 TX = Triangulation_2D(X, B)
@@ -40,4 +40,4 @@ plot(TwX)
 ```
 
 ## Reference
-CGAL, [*Computational Geometry Algorithms Library*](https://www.cgal.org)
+CGAL, [*Computational Geometry Algorithms Library*](https://www.cgal.org).
