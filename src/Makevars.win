@@ -1,0 +1,5 @@
+CGAL_LIBS_WIN = -L"F:/vcpkg/installed/x64-windows/bin" -lmpfr -lmpir -lpthread $(-lboost_thread*) $(-lboost_system*) $(-lCGAL*)
+
+# combine with standard arguments for R
+PKG_LIBS = $(CGAL_LIBS_WIN) $(RCPP_LDFLAGS)
+PKG_CPPFLAGS =  -I"F:/vcpkg/installed/x64-windows/include" -std=c++11

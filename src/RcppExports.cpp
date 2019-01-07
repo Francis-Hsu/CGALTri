@@ -5,6 +5,17 @@
 
 using namespace Rcpp;
 
+// Voronoi_Area_2D
+NumericVector Voronoi_Area_2D(const NumericMatrix& Y);
+RcppExport SEXP _CGALTri_Voronoi_Area_2D(SEXP YSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type Y(YSEXP);
+    rcpp_result_gen = Rcpp::wrap(Voronoi_Area_2D(Y));
+    return rcpp_result_gen;
+END_RCPP
+}
 // Delaunay_Tri_2D
 List Delaunay_Tri_2D(const NumericMatrix& data, const NumericVector& bCoord);
 RcppExport SEXP _CGALTri_Delaunay_Tri_2D(SEXP dataSEXP, SEXP bCoordSEXP) {
@@ -42,6 +53,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_CGALTri_Voronoi_Area_2D", (DL_FUNC) &_CGALTri_Voronoi_Area_2D, 1},
     {"_CGALTri_Delaunay_Tri_2D", (DL_FUNC) &_CGALTri_Delaunay_Tri_2D, 2},
     {"_CGALTri_Regular_Tri_2D", (DL_FUNC) &_CGALTri_Regular_Tri_2D, 2},
     {"_CGALTri_test_tri", (DL_FUNC) &_CGALTri_test_tri, 1},

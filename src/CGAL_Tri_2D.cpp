@@ -46,15 +46,6 @@ struct Crop_Dual {
   }
 };
 
-void Crop_Edges(NumericMatrix Edges, const Iso_rectangle_2 &rec) {
-  for (int i = 0; i < Edges.nrow(); i++) {
-    Point_2 p(Edges(i, 0), Edges(i, 1));
-    Point_2 q(Edges(i, 2), Edges(i, 3));
-    Segment_2 s(p, q);
-  }
-	return;
-}
-
 // [[Rcpp::export]]
 List Delaunay_Tri_2D(const NumericMatrix &data, const NumericVector &bCoord) {
   // load data
