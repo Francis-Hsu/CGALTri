@@ -5,14 +5,14 @@
 
 using namespace Rcpp;
 
-// Voronoi_Area_2D
-NumericVector Voronoi_Area_2D(const NumericMatrix& Y);
-RcppExport SEXP _CGALTri_Voronoi_Area_2D(SEXP YSEXP) {
+// Transport_2D
+NumericVector Transport_2D(const NumericMatrix& X);
+RcppExport SEXP _CGALTri_Transport_2D(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericMatrix& >::type Y(YSEXP);
-    rcpp_result_gen = Rcpp::wrap(Voronoi_Area_2D(Y));
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(Transport_2D(X));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -40,23 +40,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// test_tri
-int test_tri(NumericMatrix data);
-RcppExport SEXP _CGALTri_test_tri(SEXP dataSEXP) {
+// Regular_Tri_3D
+NumericMatrix Regular_Tri_3D(const NumericMatrix& data);
+RcppExport SEXP _CGALTri_Regular_Tri_3D(SEXP dataSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type data(dataSEXP);
-    rcpp_result_gen = Rcpp::wrap(test_tri(data));
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(Regular_Tri_3D(data));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_CGALTri_Voronoi_Area_2D", (DL_FUNC) &_CGALTri_Voronoi_Area_2D, 1},
+    {"_CGALTri_Transport_2D", (DL_FUNC) &_CGALTri_Transport_2D, 1},
     {"_CGALTri_Delaunay_Tri_2D", (DL_FUNC) &_CGALTri_Delaunay_Tri_2D, 2},
     {"_CGALTri_Regular_Tri_2D", (DL_FUNC) &_CGALTri_Regular_Tri_2D, 2},
-    {"_CGALTri_test_tri", (DL_FUNC) &_CGALTri_test_tri, 1},
+    {"_CGALTri_Regular_Tri_3D", (DL_FUNC) &_CGALTri_Regular_Tri_3D, 1},
     {NULL, NULL, 0}
 };
 
