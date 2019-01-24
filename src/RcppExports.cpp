@@ -6,13 +6,14 @@
 using namespace Rcpp;
 
 // Transport_2D
-NumericVector Transport_2D(const NumericMatrix& X);
-RcppExport SEXP _CGALTri_Transport_2D(SEXP XSEXP) {
+NumericVector Transport_2D(const NumericMatrix& X, int& maxit);
+RcppExport SEXP _CGALTri_Transport_2D(SEXP XSEXP, SEXP maxitSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const NumericMatrix& >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(Transport_2D(X));
+    Rcpp::traits::input_parameter< int& >::type maxit(maxitSEXP);
+    rcpp_result_gen = Rcpp::wrap(Transport_2D(X, maxit));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -53,7 +54,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_CGALTri_Transport_2D", (DL_FUNC) &_CGALTri_Transport_2D, 1},
+    {"_CGALTri_Transport_2D", (DL_FUNC) &_CGALTri_Transport_2D, 2},
     {"_CGALTri_Delaunay_Tri_2D", (DL_FUNC) &_CGALTri_Delaunay_Tri_2D, 2},
     {"_CGALTri_Regular_Tri_2D", (DL_FUNC) &_CGALTri_Regular_Tri_2D, 2},
     {"_CGALTri_Regular_Tri_3D", (DL_FUNC) &_CGALTri_Regular_Tri_3D, 1},
