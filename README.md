@@ -1,6 +1,6 @@
 # CGALTri
 ## Description
-An experimental R package that performs triangulation using CGAL.
+An experimental R package that performs triangulation & 2D optimal transportation for uniform measure.
 
 ## Installation
 In R console, run `devtools::install_github("Francis-Hsu/CGALTri")`.
@@ -43,3 +43,6 @@ plot(TwX)
 
 ## Reference
 CGAL, [*Computational Geometry Algorithms Library*](https://www.cgal.org).
+
+Bruno Lévy, Erica L. Schwindt, *Notions of optimal transport theory and how to implement them on a computer*, Computers & Graphics,
+Volume 72, 2018, Pages 135-148, ISSN 0097-8493, https://doi.org/10.1016/j.cag.2018.01.009.
